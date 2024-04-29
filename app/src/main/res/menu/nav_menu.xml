@@ -9,10 +9,10 @@
             app:showAsAction="ifRoom|withText" />
 
         <item
-            android:id="@+id/userPoints"
-            android:orderInCategory="2"
-            android:title="User Ride Points"
-            app:showAsAction="ifRoom|withText" />
+            android:id="@+id/logoutUser"
+            android:orderInCategory="5"
+            android:title="Logout"
+            app:showAsAction="never" />
 
         <item
             android:id="@+id/changePassword"
@@ -21,15 +21,17 @@
             app:showAsAction="ifRoom|withText" />
 
         <item
-            android:id="@+id/deleteAcc"
-            android:orderInCategory="4"
-            android:title="Delete Account"
+            android:id="@+id/userPoints"
+            android:orderInCategory="2"
+            android:title="User Ride Points"
             app:showAsAction="ifRoom|withText" />
 
         <item
-            android:id="@+id/logoutUser"
-            android:orderInCategory="5"
-            android:title="Logout"
-            app:showAsAction="never" />
+            android:id="@+id/deleteAcc"
+            android:orderInCategory="4"
+            android:title="Remove Account"
+            app:showAsAction="ifRoom|withText" />
+
+        
     </group>
 </menu>
