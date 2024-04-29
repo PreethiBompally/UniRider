@@ -48,7 +48,7 @@ public class ReviewAcceptedRequestsActivity extends AppCompatActivity {
 
     private void loadAcceptedRequests() {
 
-        DatabaseReference acceptedRequestsRef = database.getReference("AcceptedOffers");
+        DatabaseReference acceptedRequestsRef = database.getReference("AcceptedRequests");
         
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
