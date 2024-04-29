@@ -52,9 +52,9 @@ public class Register extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        editTextName = findViewById(R.id.name);
+//        editTextName = findViewById(R.id.name);
         editTextEmail = findViewById(R.id.email);
-        editTextUsername = findViewById(R.id.username);
+//        editTextUsername = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
         buttonReg = findViewById(R.id.btn_register);
         progressbar = findViewById(R.id.progressBar);
@@ -83,11 +83,11 @@ public class Register extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("users");
 
-        String fullName, email, username, password;
+        String email, password;
         Integer userPoints;
-        fullName = String.valueOf(editTextName.getText());
+//        fullName = String.valueOf(editTextName.getText());
         email = String.valueOf(editTextEmail.getText());
-        username = String.valueOf(editTextUsername.getText());
+//        username = String.valueOf(editTextUsername.getText());
         password = String.valueOf(editTextPassword.getText());
         userPoints = 500;
 
@@ -103,8 +103,8 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        HelperClass helperClass = new HelperClass(fullName, email, username, password, userPoints);
-        reference.child(username).setValue(helperClass);
+        HelperClass helperClass = new HelperClass(email, email.substring(0, email.indexOf("@")),  password, userPoints);
+        reference.child(email.substring(0, email.indexOf("@"))).setValue(helperClass);
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

@@ -21,7 +21,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginBottom="20dp"
-        android:text="@string/login"/>
+        android:text="Login"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -29,7 +29,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_your_email" />
+            android:hint="Email" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,7 +39,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_your_password"
+            android:hint="Password"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,12 +50,11 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <!-- Button for Login with text "Login" -->
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login" />
+        android:text="Login" />
 
     <TextView
         android:id="@+id/registerNow"
@@ -63,7 +62,7 @@
         android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="@string/not_registered_yet_sign_up"
+        android:text="SignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
@@ -72,7 +71,7 @@
         android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="@string/click_to_reset_password"
+        android:text="Forgot password? Reset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

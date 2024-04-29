@@ -145,7 +145,7 @@
                 android:id="@+id/rideRequests_accept_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Accept Ride" />
+                android:text="Accept Ride Request" />
 
         </LinearLayout>
 

@@ -114,25 +114,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-//    private class RidderButtonClickListener implements View.OnClickListener {
-//        @Override
-//        public void onClick(View view) {
-//            // start the user registration activity
-//            Intent intent = new Intent(view.getContext(), RiderActivity.class);
-//            view.getContext().startActivity(intent);
-//        }
-//    }
-//
-//    private class DriverButtonClickListener implements View.OnClickListener {
-//        @Override
-//        public void onClick(View view) {
-//            // start the user registration activity
-//            Intent intent = new Intent(view.getContext(), Driver.class);
-//            view.getContext().startActivity(intent);
-//        }
-//    }
-
     public void selectDrawerItem(MenuItem menuItem) {
         // Create an intent to launch activities based on nav item clicked
         Intent intent;
@@ -163,9 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Password length must be minimum 5 characters", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    // Check if the new password is different from the current password by at least 3 characters
                     if (newPassword.equals(currentPassword)) {
-                        // Show an error message or handle the case where the new password is not different enough
                         Toast.makeText(MainActivity.this, "New password must be different from the current password.", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -206,12 +185,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        // Close the navigation drawer
         mDrawer.closeDrawers();
     }
 
 
-    // Function to delete user account and associated data
     private void deleteUserAccount(String userEmail) {
         DatabaseReference usersRef = database.getReference("users"); // Assuming "users" is the top-level node in your database
         Query query = usersRef.orderByChild("email").equalTo(userEmail);
@@ -220,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    // Delete the user based on the snapshot key (username in your case)
                     String usernameToDelete = userSnapshot.getKey();
                     deleteUserData(usernameToDelete);
                 }
@@ -228,13 +204,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle the error
                 Log.e("Firebase", "Error querying user data", databaseError.toException());
             }
         });
     }
 
-    // Function to delete user data from the Realtime Database
     private void deleteUserData(String usernameToDelete) {
         DatabaseReference userToDeleteRef = database.getReference("users").child(usernameToDelete);
         userToDeleteRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -292,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                                     public void onSuccess(Void aVoid) {
                                         //password updated
                                         dialog.dismiss();
-                                        Toast.makeText(MainActivity.this, "Password Changed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "Password reset Successfull", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {

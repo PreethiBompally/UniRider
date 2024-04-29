@@ -2,16 +2,8 @@ package edu.uga.cs.unirider;
 
 public class HelperClass {
 
-    String fullName, email, username, password;
+    String username, email, password;
     Integer userPoints;
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     public String getEmail() {
         return email;
@@ -19,14 +11,6 @@ public class HelperClass {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -41,8 +25,7 @@ public class HelperClass {
 
     public void setUserPoints(Integer userPoints) { this.userPoints = userPoints; }
 
-    public HelperClass(String fullName, String email, String username, String password, Integer userPoints) {
-        this.fullName = fullName;
+    public HelperClass(String email, String username, String password, Integer userPoints) {
         this.email = email;
         this.username = username;
         this.password = password;

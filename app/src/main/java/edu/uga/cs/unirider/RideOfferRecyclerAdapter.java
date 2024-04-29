@@ -101,7 +101,7 @@ public class RideOfferRecyclerAdapter extends RecyclerView.Adapter<RideOfferRecy
             holder.acceptButton.setText("Your Offer");
         } else {
             holder.acceptButton.setEnabled(true);
-            holder.acceptButton.setText("Accept Offer");
+            holder.acceptButton.setText("Accept Ride Offer");
             holder.acceptButton.setOnClickListener(new AcceptButtonClickListener(position));
         }
 

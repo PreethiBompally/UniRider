@@ -6,8 +6,8 @@
 
     <style name="Theme.UniRider.ActionBar" parent="Theme.Material3.DayNight">
         <!-- Customize your theme to include an ActionBar -->
-        <!-- <item name="colorPrimary">@color/my_primary_color</item>
-        <item name="colorPrimaryVariant">@color/my_primary_dark_color</item>
-        <item name="colorOnPrimary">@color/my_on_primary_color</item> -->
+        <!-- <item name="colorPrimary">@color/my_primary_color</item> -->
+        <!-- <item name="colorPrimaryVariant">@color/my_toolbar_color</item>
+        <item name="colorOnPrimary">@color/my_toolbar_color</item> -->
     </style>
 </resources>

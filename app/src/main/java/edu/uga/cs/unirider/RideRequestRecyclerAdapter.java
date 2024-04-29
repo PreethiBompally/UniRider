@@ -93,14 +93,21 @@ public class RideRequestRecyclerAdapter extends RecyclerView.Adapter<RideRequest
         holder.pickup.setText(pickup);
         holder.dropoff.setText(dropoff);
 
-        holder.acceptRequestButton.setOnClickListener(new AcceptButtonClickListener(position));
+        // holder.acceptRequestButton.setOnClickListener(new AcceptButtonClickListener(position));
+        
+        if (auth == null) auth = FirebaseAuth.getInstance();
+        if (user == null) user = auth.getCurrentUser();
 
-        // We can attach an OnClickListener to the itemView of the holder;
-        // itemView is a public field in the Holder class.
-        // It will be called when the user taps/clicks on the whole item, i.e., one of
-        // the ride requests shown.
-        // This will indicate that the user wishes to edit (modify or delete) this item.
-        // We create and show an EditRideRequestDialogFragment.
+        // Check if the current user is the driver of the ride offer
+        if (user != null && user.getEmail() != null && user.getEmail().equals(riderName)) {
+            holder.acceptRequestButton.setEnabled(false);
+            holder.acceptRequestButton.setText("Your Request");
+        } else {
+            holder.acceptRequestButton.setEnabled(true);
+            holder.acceptRequestButton.setText("Accept Ride Request");
+            holder.acceptRequestButton.setOnClickListener(new AcceptButtonClickListener(position));
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

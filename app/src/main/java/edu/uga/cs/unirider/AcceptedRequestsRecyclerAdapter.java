@@ -109,7 +109,7 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
                     if (currentUser != null) {
                         // Get the current user's email
                         String currentRiderEmail = currentUser.getEmail();
-                        String currentDriverEmail = acceptedRequest.getDriverName(); // Replace with the actual way to get the rider email
+                        String currentDriverEmail = acceptedRequest.getDriverName();
                         String key = acceptedRequest.getKey();
                         holder.confirmRequestButton.setEnabled(false);
                         reference1 = database.getReference("AcceptedRequests");

@@ -1,27 +1,35 @@
 package edu.uga.cs.unirider;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import java.util.Calendar;
 
 public class EditRideOfferDialogFragment extends DialogFragment {
 
-    public static final int SAVE = 1;   // update an existing ride offer
-    public static final int DELETE = 2; // delete an existing ride offer
+    public static final int SAVE = 1; 
+    public static final int DELETE = 2;
 
-    public static final int ACCEPT = 3; // delete an existing ride offer
+    public static final int ACCEPT = 3;
 
-    private EditText driverNameView;
-    private EditText dateView;
-    private EditText timeView;
+    private TextView driverNameView;
+    private DatePicker dateView;
+    private TimePicker timeView;
     private EditText pickupView;
     private EditText dropoffView;
 
@@ -77,8 +85,15 @@ public class EditRideOfferDialogFragment extends DialogFragment {
         dropoffView = layout.findViewById(R.id.rideOfferDialog_editText5);
 
         driverNameView.setText(driverName);
-        dateView.setText(date);
-        timeView.setText(time);
+        dateView.setOnClickListener(v -> {
+            Calendar cal = Calendar.getInstance();
+            new DatePickerDialog(getContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
+        });
+
+        timeView.setOnClickListener(v -> {
+            Calendar cal = Calendar.getInstance();
+            new TimePickerDialog(getContext(), timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false).show();
+        });
         pickupView.setText(pickup);
         dropoffView.setText(dropoff);
 
@@ -100,12 +115,61 @@ public class EditRideOfferDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, year);
+            cal.set(Calendar.MONTH, month);
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateDateInView(cal);
+        }
+    };
+
+    private void updateDateInView(Calendar cal) {
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        dateView.updateDate(year, month, day);
+    }
+    
+
+    private TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            cal.set(Calendar.MINUTE, minute);
+            updateTimeInView(cal);
+        }
+    };
+
+    private void updateTimeInView(Calendar cal) {
+        int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+        timeView.setHour(hourOfDay);
+        timeView.setMinute(minute);
+
+    }
+
     private class SaveButtonClickListener implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             String editedDriverName = driverNameView.getText().toString();
-            String editedDate = dateView.getText().toString();
-            String editedTime = timeView.getText().toString();
+            int year = dateView.getYear();
+            int month = dateView.getMonth();
+            int day = dateView.getDayOfMonth();
+            int hour = timeView.getCurrentHour();
+            int minute = timeView.getCurrentMinute();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day, hour, minute);
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+            String editedDate = dateFormat.format(calendar.getTime());
+            String editedTime = timeFormat.format(calendar.getTime());
             String editedPickup = pickupView.getText().toString();
             String editedDropoff = dropoffView.getText().toString();
 
