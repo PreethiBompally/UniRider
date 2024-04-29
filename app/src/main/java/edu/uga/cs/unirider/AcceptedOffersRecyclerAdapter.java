@@ -88,16 +88,6 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
         holder.pickup.setText(pickup);
         holder.dropoff.setText(dropoff);
 
-        if (acceptedOffer.isConfirmed()) {
-            // If the driver has confirmed the ride, disable the button and set its text to "Confirmed"
-            holder.confirmOfferButton.setEnabled(false);
-            holder.confirmOfferButton.setText("Driver Confirmed");
-        } else {
-            // If the ride is not confirmed by the driver, enable the button and set its text to "Confirm Ride Offer"
-            holder.confirmOfferButton.setEnabled(true);
-            holder.confirmOfferButton.setText("Confirm Ride Offer");
-        }
-
         // Add a click listener for the confirm button
         holder.confirmOfferButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,13 +101,10 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
                     // Get the current user's email
                     String currentDriverEmail = currentUser.getEmail();
                     String currentRiderEmail = acceptedOffer.getRiderName(); // Replace with the actual way to get the rider email
-
+                    acceptedOffer.setDriverConfirmed(true);
                     // Function to update user points based on the email
                     updateUserPoints(currentDriverEmail, 50);
                     updateUserPoints(currentRiderEmail, -50);
-                    holder.confirmOfferButton.setEnabled(false);
-                    holder.confirmOfferButton.setText("Confirmed");
-                    acceptedOffer.setDriverConfirmed(true);
                 } else {
                     // User is not signed in
                     if (context != null) {
@@ -129,9 +116,7 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
             }
         });
 
-
     }
-
     // Separate function to update user points
     private void updateUserPoints(String userEmail, int pointsChange) {
         // Query the database to find the user with the matching email
