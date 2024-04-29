@@ -49,8 +49,10 @@ public class ReviewAcceptedRequestsActivity extends AppCompatActivity {
     private void loadAcceptedRequests() {
         // Reference to the "AcceptedRequests" node in Firebase
         DatabaseReference acceptedRequestsRef = database.getReference("AcceptedRequests");
-
-        acceptedRequestsRef.addValueEventListener(new ValueEventListener() {
+        
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        acceptedRequestsRef.orderByChild("riderName").equalTo(currentUser.getEmail()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 acceptedRequestsList.clear();
@@ -61,14 +63,12 @@ public class ReviewAcceptedRequestsActivity extends AppCompatActivity {
                         acceptedRequestsList.add(acceptedRequest);
                     }
                 }
-
-                // Notify the adapter that the data has changed
                 recyclerAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle onCancelled event if needed
+                // Handle potential errors
             }
         });
     }
