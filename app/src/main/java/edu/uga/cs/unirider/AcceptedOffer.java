@@ -11,7 +11,6 @@ public class AcceptedOffer {
     private String dropoff;
     private int userPoints;
     private boolean driverConfirmed;
-    private boolean riderConfirmed;
 
     // Default constructor
     public AcceptedOffer() {
@@ -23,12 +22,11 @@ public class AcceptedOffer {
         this.dropoff = null;
         this.userPoints = 0;
         this.driverConfirmed = false;
-        this.riderConfirmed = false;
     }
 
     // Parameterized constructor
     public AcceptedOffer(String driverName, String riderName, String date, String time,
-                         String pickup, String dropoff, int userPoints, boolean driverConfirmed, boolean riderConfirmed) {
+                         String pickup, String dropoff, int userPoints, boolean driverConfirmed) {
         this.driverName = driverName;
         this.riderName = riderName;
         this.date = date;
@@ -37,7 +35,6 @@ public class AcceptedOffer {
         this.dropoff = dropoff;
         this.userPoints = userPoints;
         this.driverConfirmed = driverConfirmed;
-        this.riderConfirmed = riderConfirmed;
     }
 
     public boolean isDriverConfirmed() {

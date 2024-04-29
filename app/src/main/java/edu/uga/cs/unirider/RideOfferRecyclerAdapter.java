@@ -131,7 +131,7 @@ public class RideOfferRecyclerAdapter extends RecyclerView.Adapter<RideOfferRecy
             Log.d(DEBUG_TAG, "User Rider Email is: " + user.getEmail());
             //create a new Accepted Ride from rideOffer values
             AcceptedOffer acceptedRide = new AcceptedOffer(rideOffer.getDriverName(), user.getEmail(), rideOffer.getDate(), rideOffer.getTime(), rideOffer.getPickup(),
-                    rideOffer.getDropoff(), 50, false, false);
+                    rideOffer.getDropoff(), 50, false);
 
             // Add a new element (AcceptedRides) to the list of ride offers in Firebase.
             FirebaseDatabase database = FirebaseDatabase.getInstance();

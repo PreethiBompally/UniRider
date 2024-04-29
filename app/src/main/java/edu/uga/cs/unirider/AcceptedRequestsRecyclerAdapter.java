@@ -115,7 +115,7 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
                         reference1 = database.getReference("AcceptedRequests");
                         holder.confirmRequestButton.setText("Confirmed");
                         acceptedRequest.setRiderConfirmed(true);
-                        reference1.child(key).child("confirmed").setValue(true);
+                        reference1.child(key).child("riderConfirmed").setValue(true);
                         
                         updateUserPoints(currentDriverEmail, 50);
                         updateUserPoints(currentRiderEmail, -50);

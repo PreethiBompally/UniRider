@@ -114,7 +114,7 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
                         reference1 = database.getReference("AcceptedOffers");
                         holder.confirmOfferButton.setText("Confirmed");
                         acceptedOffer.setDriverConfirmed(true);
-                        reference1.child(key).child("confirmed").setValue(true);
+                        reference1.child(key).child("driverConfirmed").setValue(true);
                         // Function to update user points based on the email
                         updateUserPoints(currentDriverEmail, 50);
                         updateUserPoints(currentRiderEmail, -50);
