@@ -27,6 +27,8 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
     public static final String DEBUG_TAG = "AcceptedOffersRecyclerAdapter";
     private FirebaseDatabase database;
     private DatabaseReference reference;
+    private DatabaseReference reference1;
+
     private List<AcceptedOffer> acceptedOffersList;
     private Context context;
 
@@ -100,8 +102,16 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
                 if (currentUser != null) {
                     // Get the current user's email
                     String currentDriverEmail = currentUser.getEmail();
-                    String currentRiderEmail = acceptedOffer.getRiderName(); // Replace with the actual way to get the rider email
+                    String currentRiderEmail = acceptedOffer.getRiderName();
+                    String key = acceptedOffer.getKey();
                     acceptedOffer.setDriverConfirmed(true);
+                    holder.confirmOfferButton.setEnabled(false);
+                    reference1 = database.getReference("acceptedoffers");
+
+                    holder.confirmOfferButton.setText("Confirmed");
+
+                    acceptedOffer.setDriverConfirmed(true);
+                    reference1.child(key).child("confirmed").setValue(true);
                     // Function to update user points based on the email
                     updateUserPoints(currentDriverEmail, 50);
                     updateUserPoints(currentRiderEmail, -50);

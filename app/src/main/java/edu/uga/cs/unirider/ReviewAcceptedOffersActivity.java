@@ -59,6 +59,7 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AcceptedOffer acceptedOffer = snapshot.getValue(AcceptedOffer.class);
+                    acceptedOffer.setKey(snapshot.getKey());
                     if (acceptedOffer != null) {
                         acceptedOffersList.add(acceptedOffer);
                     }

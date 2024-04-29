@@ -59,6 +59,7 @@ public class ReviewAcceptedRequestsActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AcceptedRequest acceptedRequest = snapshot.getValue(AcceptedRequest.class);
+                    acceptedRequest.setKey(snapshot.getKey());
                     if (acceptedRequest != null) {
                         acceptedRequestsList.add(acceptedRequest);
                     }

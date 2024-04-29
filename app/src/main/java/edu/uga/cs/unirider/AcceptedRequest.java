@@ -37,7 +37,13 @@ public class AcceptedRequest {
         this.confirmed = confirmed;
     }
 
+    public String getKey() {
+        return key;
+    }
 
+    public void setKey(String key) {
+        this.key = key;
+    }
 
 
     // Getter and Setter for driverName
