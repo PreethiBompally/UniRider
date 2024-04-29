@@ -111,13 +111,14 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressbar.setVisibility(View.GONE);
-                        if (task.isSuccessful()) {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(Register.this, "Authentication failed. Please try a different email or check your password.", Toast.LENGTH_SHORT).show();
+                        } else {
                             Toast.makeText(Register.this, "Account Created.", Toast.LENGTH_SHORT).show();
+
                             Intent intent = new Intent(getApplicationContext(), Login.class);
                             startActivity(intent);
                             finish();
-                        } else {
-                            Toast.makeText(Register.this, "Authentication failed. Please try a different email or check your password.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
