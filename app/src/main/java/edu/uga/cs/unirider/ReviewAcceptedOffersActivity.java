@@ -50,7 +50,28 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
         // Reference to the "AcceptedOffers" node in Firebase
         DatabaseReference acceptedOffersRef = database.getReference("AcceptedOffers");
 
-        acceptedOffersRef.addValueEventListener(new ValueEventListener() {
+//        acceptedOffersRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                acceptedOffersList.clear();
+//
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    AcceptedOffer acceptedOffer = snapshot.getValue(AcceptedOffer.class);
+//                    if (acceptedOffer != null) {
+//                        acceptedOffersList.add(acceptedOffer);
+//                    }
+//                }
+//
+//                // Notify the adapter that the data has changed
+//                recyclerAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                // Handle onCancelled event if needed
+//            }
+//        });
+        acceptedOffersRef.orderByChild("riderName").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 acceptedOffersList.clear();
@@ -61,14 +82,12 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
                         acceptedOffersList.add(acceptedOffer);
                     }
                 }
-
-                // Notify the adapter that the data has changed
                 recyclerAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle onCancelled event if needed
+                // Handle potential errors
             }
         });
     }
