@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">UniRider</string>
+    <string name="login">Login</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="register">Register</string>
+    <string name="click_to_login">Click to Login</string>
+    <string name="click_to_register">Click to Register</string>
+    <string name="logout">Logout</string>
+    <string name="click_to_reset_password">Click to Reset Password</string>
+    <string name="click_to_reset">Click to Reset</string>
+    <string name="reset_passowd">Reset Passowd</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="enter_old_password">Enter Old Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="not_registered_yet_sign_up">Not registered yet? Sign Up</string>
+    <string name="enter_your_name">Enter your Name</string>
+</resources>

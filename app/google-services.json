@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "224385605133",
+    "firebase_url": "https://unirider-10c15-default-rtdb.firebaseio.com",
+    "project_id": "unirider-10c15",
+    "storage_bucket": "unirider-10c15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224385605133:android:9701be3f70eeb496de7f44",
+        "android_client_info": {
+          "package_name": "edu.uga.cs.unirider"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvaYhsj_yZoIBhRtnLcp51eeyWFXk9aK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
