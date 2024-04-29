@@ -21,7 +21,7 @@ public class RiderActivity extends AppCompatActivity {
 
         viewRideOffers = findViewById(R.id.cardViewViewRideOffer);
         postRideRequests = findViewById(R.id.cardViewRequestRide);
-        viewAcceptedRides = findViewById(R.id.cardViewViewAcceptedRides1);
+        viewAcceptedRides = findViewById(R.id.cardViewViewAcceptedRides);
 
         viewRideOffers.setOnClickListener(new ViewRideOffersButtonClickListener());
         postRideRequests.setOnClickListener(new PostRideRequestButtonClickListener());

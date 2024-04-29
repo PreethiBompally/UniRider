@@ -31,6 +31,8 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
 
     private FirebaseDatabase database;
     private DatabaseReference reference;
+    private DatabaseReference reference1;
+
 
     public AcceptedRequestsRecyclerAdapter(List<AcceptedRequest> acceptedRequestList, Context context) {
         this.acceptedRequestList = acceptedRequestList;
@@ -89,32 +91,45 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
         holder.dropoff.setText(dropoff);
 
         // Add a click listener for the confirm button
-        holder.confirmRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                database = FirebaseDatabase.getInstance();
-                reference = database.getReference("users");
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (acceptedRequest.isRiderConfirmed()) {
+            holder.confirmRequestButton.setEnabled(false);
+            holder.confirmRequestButton.setText("Confirmed");
+        } else {
+            holder.confirmRequestButton.setEnabled(true);
+            holder.confirmRequestButton.setText("Confirm Ride Request");
 
-                if (currentUser != null) {
-                    // Get the current user's email
-                    String currentRiderEmail = currentUser.getEmail();
-                    String currentDriverEmail = acceptedRequest.getDriverName(); // Replace with the actual way to get the rider email
+            holder.confirmRequestButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    database = FirebaseDatabase.getInstance();
+                    reference = database.getReference("users");
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
 
-                    // Function to update user points based on the email
-                    updateUserPoints(currentDriverEmail, 50);
-                    updateUserPoints(currentRiderEmail, -50);
-                } else {
-                    // User is not signed in
-                    if (context != null) {
-                        Toast.makeText(context, "User is not signed in", Toast.LENGTH_SHORT).show();
+                    if (currentUser != null) {
+                        // Get the current user's email
+                        String currentRiderEmail = currentUser.getEmail();
+                        String currentDriverEmail = acceptedRequest.getDriverName(); // Replace with the actual way to get the rider email
+                        String key = acceptedRequest.getKey();
+                        holder.confirmRequestButton.setEnabled(false);
+                        reference1 = database.getReference("AcceptedRequests");
+                        holder.confirmRequestButton.setText("Confirmed");
+                        acceptedRequest.setRiderConfirmed(true);
+                        reference1.child(key).child("confirmed").setValue(true);
+                        
+                        updateUserPoints(currentDriverEmail, 50);
+                        updateUserPoints(currentRiderEmail, -50);
                     } else {
-                        Log.e("TAG", "Context is null");
+                        // User is not signed in
+                        if (context != null) {
+                            Toast.makeText(context, "User is not signed in", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e("TAG", "Context is null");
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     // Separate function to update user points

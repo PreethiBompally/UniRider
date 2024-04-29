@@ -24,7 +24,7 @@ public class Driver extends AppCompatActivity {
 
         viewRideRequest = findViewById(R.id.cardViewViewRideRequest);
         postRideRequest = findViewById(R.id.cardViewPostRideRequest);
-        viewAcceptedRides = findViewById(R.id.cardViewViewAcceptedRides);
+        viewAcceptedRides = findViewById(R.id.cardViewViewAcceptedRides1);
 
         viewRideRequest.setOnClickListener(new ViewRideRequestButtonClickListener());
         postRideRequest.setOnClickListener(new PostRideRequestButtonClickListener());

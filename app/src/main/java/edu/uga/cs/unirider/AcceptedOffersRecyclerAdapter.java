@@ -92,11 +92,9 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
 
         // Add a click listener for the confirm button
         if (acceptedOffer.isDriverConfirmed()) {
-            // If the offer is confirmed, disable the button and change the text to "Driver Confirmed"
             holder.confirmOfferButton.setEnabled(false);
-            holder.confirmOfferButton.setText("Driver Confirmed");
+            holder.confirmOfferButton.setText("Confirmed");
         } else {
-            // If the offer is not confirmed, enable the button and set the text to "Confirm Ride Offer"
             holder.confirmOfferButton.setEnabled(true);
             holder.confirmOfferButton.setText("Confirm Ride Offer");
             holder.confirmOfferButton.setOnClickListener(new View.OnClickListener() {
@@ -112,12 +110,9 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
                         String currentDriverEmail = currentUser.getEmail();
                         String currentRiderEmail = acceptedOffer.getRiderName();
                         String key = acceptedOffer.getKey();
-                        acceptedOffer.setDriverConfirmed(true);
                         holder.confirmOfferButton.setEnabled(false);
                         reference1 = database.getReference("AcceptedOffers");
-
-                        holder.confirmOfferButton.setText("driverConfirmed");
-
+                        holder.confirmOfferButton.setText("Confirmed");
                         acceptedOffer.setDriverConfirmed(true);
                         reference1.child(key).child("confirmed").setValue(true);
                         // Function to update user points based on the email

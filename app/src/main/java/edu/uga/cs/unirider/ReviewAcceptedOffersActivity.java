@@ -1,6 +1,8 @@
 package edu.uga.cs.unirider;
 
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,10 +22,10 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AcceptedOffersRecyclerAdapter recyclerAdapter;
 
-    private AcceptedRequestsRecyclerAdapter recyclerAdapter1;
+    // private AcceptedRequestsRecyclerAdapter recyclerAdapter1;
     private List<AcceptedOffer> acceptedOffersList;
 
-    private List<AcceptedRequest> acceptedRequestList;
+    // private List<AcceptedRequest> acceptedRequestList;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -41,9 +43,9 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
         recyclerAdapter = new AcceptedOffersRecyclerAdapter(acceptedOffersList, this);
         recyclerView.setAdapter(recyclerAdapter);
 
-        acceptedRequestList = new ArrayList<>();
-        recyclerAdapter1 = new AcceptedRequestsRecyclerAdapter(acceptedRequestList, this);
-        recyclerView.setAdapter(recyclerAdapter1);
+        // acceptedRequestList = new ArrayList<>();
+        // recyclerAdapter1 = new AcceptedRequestsRecyclerAdapter(acceptedRequestList, this);
+        // recyclerView.setAdapter(recyclerAdapter1);
 
         // Initialize Firebase
         auth = FirebaseAuth.getInstance();
@@ -52,7 +54,7 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
 
         // Load accepted offers from Firebase
         loadAcceptedOffers();
-        loadAcceptedRequests();
+        // loadAcceptedRequests();
     }
 
     private void loadAcceptedOffers() {
@@ -72,7 +74,10 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
                     if (acceptedOffer != null) {
                         acceptedOffersList.add(acceptedOffer);
                     }
+                    Log.d("DEBUG_TAG", "loadAcceptedOffers: " + acceptedOffer);
+
                 }
+                
                 recyclerAdapter.notifyDataSetChanged();
             }
 
@@ -82,31 +87,31 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
             }
         });
     }
-    private void loadAcceptedRequests() {
-        // Reference to the "AcceptedOffers" node in Firebase
-        DatabaseReference acceptedRequestsRef = database.getReference("AcceptedRequests");
+    // private void loadAcceptedRequests() {
+    //     // Reference to the "AcceptedOffers" node in Firebase
+    //     DatabaseReference acceptedRequestsRef = database.getReference("AcceptedRequests");
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        acceptedRequestsRef.orderByChild("driverName").equalTo(currentUser.getEmail()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                acceptedRequestList.clear();
+    //     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    //     FirebaseUser currentUser = mAuth.getCurrentUser();
+    //     acceptedRequestsRef.orderByChild("driverName").equalTo(currentUser.getEmail()).addValueEventListener(new ValueEventListener() {
+    //         @Override
+    //         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+    //             acceptedRequestList.clear();
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    AcceptedRequest acceptedRequest = snapshot.getValue(AcceptedRequest.class);
-                    acceptedRequest.setKey(snapshot.getKey());
-                    if (acceptedRequest != null) {
-                        acceptedRequestList.add(acceptedRequest);
-                    }
-                }
-                recyclerAdapter1.notifyDataSetChanged();
-            }
+    //             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+    //                 AcceptedRequest acceptedRequest = snapshot.getValue(AcceptedRequest.class);
+    //                 acceptedRequest.setKey(snapshot.getKey());
+    //                 if (acceptedRequest != null) {
+    //                     acceptedRequestList.add(acceptedRequest);
+    //                 }
+    //             }
+    //             recyclerAdapter1.notifyDataSetChanged();
+    //         }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle potential errors
-            }
-        });
-    }
+    //         @Override
+    //         public void onCancelled(@NonNull DatabaseError databaseError) {
+    //             // Handle potential errors
+    //         }
+    //     });
+    // }
 }
