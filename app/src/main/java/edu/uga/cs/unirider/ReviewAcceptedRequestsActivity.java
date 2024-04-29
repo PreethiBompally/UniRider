@@ -47,7 +47,7 @@ public class ReviewAcceptedRequestsActivity extends AppCompatActivity {
     }
 
     private void loadAcceptedRequests() {
-        // Reference to the "AcceptedRequests" node in Firebase
+
         DatabaseReference acceptedRequestsRef = database.getReference("AcceptedOffers");
         
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

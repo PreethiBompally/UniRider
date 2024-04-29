@@ -91,41 +91,49 @@ public class AcceptedOffersRecyclerAdapter extends RecyclerView.Adapter<Accepted
         holder.dropoff.setText(dropoff);
 
         // Add a click listener for the confirm button
-        holder.confirmOfferButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                database = FirebaseDatabase.getInstance();
-                reference = database.getReference("users");
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (acceptedOffer.isDriverConfirmed()) {
+            // If the offer is confirmed, disable the button and change the text to "Driver Confirmed"
+            holder.confirmOfferButton.setEnabled(false);
+            holder.confirmOfferButton.setText("Driver Confirmed");
+        } else {
+            // If the offer is not confirmed, enable the button and set the text to "Confirm Ride Offer"
+            holder.confirmOfferButton.setEnabled(true);
+            holder.confirmOfferButton.setText("Confirm Ride Offer");
+            holder.confirmOfferButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    database = FirebaseDatabase.getInstance();
+                    reference = database.getReference("users");
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
 
-                if (currentUser != null) {
-                    // Get the current user's email
-                    String currentDriverEmail = currentUser.getEmail();
-                    String currentRiderEmail = acceptedOffer.getRiderName();
-                    String key = acceptedOffer.getKey();
-                    acceptedOffer.setDriverConfirmed(true);
-                    holder.confirmOfferButton.setEnabled(false);
-                    reference1 = database.getReference("acceptedoffers");
+                    if (currentUser != null) {
+                        // Get the current user's email
+                        String currentDriverEmail = currentUser.getEmail();
+                        String currentRiderEmail = acceptedOffer.getRiderName();
+                        String key = acceptedOffer.getKey();
+                        acceptedOffer.setDriverConfirmed(true);
+                        holder.confirmOfferButton.setEnabled(false);
+                        reference1 = database.getReference("AcceptedOffers");
 
-                    holder.confirmOfferButton.setText("Confirmed");
+                        holder.confirmOfferButton.setText("driverConfirmed");
 
-                    acceptedOffer.setDriverConfirmed(true);
-                    reference1.child(key).child("confirmed").setValue(true);
-                    // Function to update user points based on the email
-                    updateUserPoints(currentDriverEmail, 50);
-                    updateUserPoints(currentRiderEmail, -50);
-                } else {
-                    // User is not signed in
-                    if (context != null) {
-                        Toast.makeText(context, "User is not signed in", Toast.LENGTH_SHORT).show();
+                        acceptedOffer.setDriverConfirmed(true);
+                        reference1.child(key).child("confirmed").setValue(true);
+                        // Function to update user points based on the email
+                        updateUserPoints(currentDriverEmail, 50);
+                        updateUserPoints(currentRiderEmail, -50);
                     } else {
-                        Log.e("TAG", "Context is null");
+                        // User is not signed in
+                        if (context != null) {
+                            Toast.makeText(context, "User is not signed in", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e("TAG", "Context is null");
+                        }
                     }
                 }
-            }
-        });
-
+            });
+        }
     }
     // Separate function to update user points
     private void updateUserPoints(String userEmail, int pointsChange) {
