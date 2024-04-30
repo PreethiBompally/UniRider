@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                     updatePassword(currentPassword, newPassword);
+                    dialog.dismiss();
                 }
             });
             dialogView.findViewById(R.id.cancelCPassword).setOnClickListener(new View.OnClickListener() {
