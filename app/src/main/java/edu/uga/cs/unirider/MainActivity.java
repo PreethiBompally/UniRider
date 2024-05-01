@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle Rider Card click
-                Intent intent = new Intent(MainActivity.this, RiderActivity.class);
+                Intent intent = new Intent(MainActivity.this, Rider.class);
                 startActivity(intent);
             }
         });

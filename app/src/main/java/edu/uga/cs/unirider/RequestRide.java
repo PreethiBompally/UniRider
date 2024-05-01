@@ -1,18 +1,16 @@
 package edu.uga.cs.unirider;
 
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import java.util.Calendar;
-
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,11 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 
-public class NewRideOffer extends AppCompatActivity {
+public class RequestRide extends AppCompatActivity {
 
-    private static final String TAG = "NewRideOffer"; // Define a TAG for logging
+    private static final String TAG = "RequestRide"; // Define a TAG for logging
 
-    private TextView driverName;
+    private TextView riderName;
     private DatePicker date;
     private TimePicker time;
     private TextView text;
@@ -48,19 +46,18 @@ public class NewRideOffer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_ride_offer);
-
+        setContentView(R.layout.activity_new_ride_request);
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        date = (DatePicker) findViewById(R.id.DatePicker01);
-        time = (TimePicker) findViewById(R.id.TimePicker01);
+        date = (DatePicker) findViewById(R.id.DatePicker);
+        time = (TimePicker) findViewById(R.id.TimePicker);
         text = (TextView) findViewById(R.id.text_datetime);
-        pickup = findViewById(R.id.editText4);
-        dropoff = findViewById(R.id.editText5);
-        saveButton = findViewById(R.id.button);
+        pickup = findViewById(R.id.rideRequest_editText4);
+        dropoff = findViewById(R.id.rideRequest_editText5);
+        saveButton = findViewById(R.id.request_button);
 
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         timeFormatter = new SimpleDateFormat("HH:mm");
@@ -86,15 +83,16 @@ public class NewRideOffer extends AppCompatActivity {
                     }
                 });
 
-
+        // Set a click listener for the save button
         saveButton.setOnClickListener(new ButtonClickListener());
     }
 
     private class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "User email: " + user.getEmail());
-            String driverNameText = user.getEmail();
+
+            Log.d(TAG, "User Email is: " + user.getEmail());
+            String riderNameText = user.getEmail();
             Calendar calendar = Calendar.getInstance();
             calendar.set(date.getYear(), date.getMonth(), date.getDayOfMonth(),
                     time.getCurrentHour(), time.getCurrentMinute());
@@ -105,42 +103,44 @@ public class NewRideOffer extends AppCompatActivity {
             String pickupText = pickup.getText().toString();
             String dropoffText = dropoff.getText().toString();
 
-            final RideOffer rideOffer = new RideOffer(driverNameText, formattedTime, formattedDate, pickupText, dropoffText);
+            final RideRequest rideRequest = new RideRequest(riderNameText, formattedTime, formattedDate, pickupText, dropoffText);
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("RideOffers");
+            DatabaseReference myRef = database.getReference("RideRequests");
 
-            myRef.push().setValue(rideOffer)
+            myRef.push().setValue(rideRequest)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(), "Ride offer created for " + rideOffer.getDriverName(),
+                            Toast.makeText(getApplicationContext(), "Ride request created for " + rideRequest.getRiderName(),
                                     Toast.LENGTH_SHORT).show();
 
-                            Log.d("Ride offer created for ", rideOffer.getDriverName());
-
-                            driverName.setText("");
-//                            date.setText("");
-//                            time.setText("");
+                            // Clear the TextViews for next use.
+                            riderName.setText("");
                             pickup.setText("");
                             dropoff.setText("");
 
-                            Log.d(TAG, "Ride offer created successfully");
+                            // Log success
+                            Log.d(TAG, "Ride request created successfully");
 
-                            Intent intent = new Intent(NewRideOffer.this, Driver.class);
+                            // Navigate to Rider
+                            Intent intent = new Intent(RequestRide.this, Rider.class);
                             startActivity(intent);
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Failed to create a ride offer for " + rideOffer.getDriverName(),
+                            Toast.makeText(getApplicationContext(), "Failed to create a ride request for " + rideRequest.getRiderName(),
                                     Toast.LENGTH_SHORT).show();
 
-                            Log.e(TAG, "Failed to create a ride offer", e);
+                            // Log failure
+                            Log.e(TAG, "Failed to create a ride request", e);
                         }
                     });
+
+
+
         }
     }
 }

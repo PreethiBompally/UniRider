@@ -35,7 +35,7 @@ public class Driver extends AppCompatActivity {
     private class PostRideRequestButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(view.getContext(), NewRideOffer.class);
+            Intent intent = new Intent(view.getContext(), OfferRide.class);
             view.getContext().startActivity(intent);
         }
     }

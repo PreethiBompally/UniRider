@@ -20,8 +20,8 @@ import java.util.List;
 public class ReviewAcceptedOffersActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private AcceptedOffersRecyclerAdapter recyclerAdapter;
-    private List<AcceptedOffer> acceptedOffersList;
+    private OffersAcceptedRecyclerAdapter recyclerAdapter;
+    private List<OfferAccepted> acceptedOffersList;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
@@ -35,7 +35,7 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         acceptedOffersList = new ArrayList<>();
-        recyclerAdapter = new AcceptedOffersRecyclerAdapter(acceptedOffersList, this);
+        recyclerAdapter = new OffersAcceptedRecyclerAdapter(acceptedOffersList, this);
         recyclerView.setAdapter(recyclerAdapter);
 
         auth = FirebaseAuth.getInstance();
@@ -56,7 +56,7 @@ public class ReviewAcceptedOffersActivity extends AppCompatActivity {
                 acceptedOffersList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    AcceptedOffer acceptedOffer = snapshot.getValue(AcceptedOffer.class);
+                    OfferAccepted acceptedOffer = snapshot.getValue(OfferAccepted.class);
                     acceptedOffer.setKey(snapshot.getKey());
                     if (acceptedOffer != null) {
                         acceptedOffersList.add(acceptedOffer);

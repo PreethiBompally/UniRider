@@ -1,6 +1,6 @@
 package edu.uga.cs.unirider;
 
-public class AcceptedOffer {
+public class OfferAccepted {
 
     private String key;
     private String driverName;
@@ -13,7 +13,7 @@ public class AcceptedOffer {
     private boolean driverConfirmed;
 
     // Default constructor
-    public AcceptedOffer() {
+    public OfferAccepted() {
         this.driverName = null;
         this.riderName = null;
         this.date = null;
@@ -25,7 +25,7 @@ public class AcceptedOffer {
     }
 
     // Parameterized constructor
-    public AcceptedOffer(String driverName, String riderName, String date, String time,
+    public OfferAccepted(String driverName, String riderName, String date, String time,
                          String pickup, String dropoff, int userPoints, boolean driverConfirmed) {
         this.driverName = driverName;
         this.riderName = riderName;

@@ -1,6 +1,6 @@
 package edu.uga.cs.unirider;
 
-public class HelperClass {
+public class User {
 
     String username, email, password;
     Integer userPoints;
@@ -25,13 +25,13 @@ public class HelperClass {
 
     public void setUserPoints(Integer userPoints) { this.userPoints = userPoints; }
 
-    public HelperClass(String email, String username, String password, Integer userPoints) {
+    public User(String email, String username, String password, Integer userPoints) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.userPoints = userPoints;
     }
 
-    public HelperClass() {
+    public User() {
     }
 }

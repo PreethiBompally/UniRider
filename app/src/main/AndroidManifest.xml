@@ -23,20 +23,20 @@
         <activity
             android:name=".ReviewAcceptedRequestsActivity"
             android:exported="false"
-            android:parentActivityName=".RiderActivity">
+            android:parentActivityName=".Rider">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.uga.cs.unirider.RiderActivity" />
+                android:value="edu.uga.cs.unirider.Rider" />
         </activity>
 
         <activity
             android:name=".ReviewRideOffersActivity"
             android:screenOrientation="sensor"
             android:exported="false"
-            android:parentActivityName=".RiderActivity">
+            android:parentActivityName=".Rider">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="edu.uga.cs.unirider.RiderActivity" />
+            android:value="edu.uga.cs.unirider.Rider" />
         </activity>
         <activity
             android:name=".ReviewRideRequestsActivity"
@@ -48,16 +48,16 @@
                 android:value="edu.uga.cs.unirider.Driver" />
         </activity>
         <activity
-            android:name=".NewRideRequest"
+            android:name=".RequestRide"
             android:screenOrientation="sensor"
             android:exported="false"
-            android:parentActivityName=".RiderActivity">
+            android:parentActivityName=".Rider">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.uga.cs.unirider.RiderActivity" />
+                android:value="edu.uga.cs.unirider.Rider" />
         </activity>
         <activity
-            android:name=".NewRideOffer"
+            android:name=".OfferRide"
             android:screenOrientation="sensor"
             android:exported="false"
             android:parentActivityName=".Driver">
@@ -89,7 +89,7 @@
                 android:value="edu.uga.cs.unirider.MainActivity" />
         </activity>
         <activity
-            android:name=".RiderActivity"
+            android:name=".Rider"
             android:screenOrientation="sensor"
             android:exported="false"
             android:parentActivityName=".MainActivity">

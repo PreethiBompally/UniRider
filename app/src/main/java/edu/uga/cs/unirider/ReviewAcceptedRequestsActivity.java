@@ -18,7 +18,7 @@ import java.util.List;
 public class ReviewAcceptedRequestsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private AcceptedRequestsRecyclerAdapter recyclerAdapter;
+    private RequestsAcceptedRecyclerAdapter recyclerAdapter;
     private List<AcceptedRequest> acceptedRequestsList;
 
     private FirebaseAuth auth;
@@ -34,7 +34,7 @@ public class ReviewAcceptedRequestsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         acceptedRequestsList = new ArrayList<>();
-        recyclerAdapter = new AcceptedRequestsRecyclerAdapter(acceptedRequestsList, this);
+        recyclerAdapter = new RequestsAcceptedRecyclerAdapter(acceptedRequestsList, this);
         recyclerView.setAdapter(recyclerAdapter);
 
         // Initialize Firebase

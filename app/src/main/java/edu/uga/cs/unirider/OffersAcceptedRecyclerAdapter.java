@@ -22,24 +22,22 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<AcceptedRequestsRecyclerAdapter.AcceptedRequestHolder> {
+public class OffersAcceptedRecyclerAdapter extends RecyclerView.Adapter<OffersAcceptedRecyclerAdapter.AcceptedOfferHolder> {
 
-    public static final String DEBUG_TAG = "AcceptedRequestsRecyclerAdapter";
-
-    private List<AcceptedRequest> acceptedRequestList;
-    private Context context;
-
+    public static final String DEBUG_TAG = "OffersAcceptedRecyclerAdapter";
     private FirebaseDatabase database;
     private DatabaseReference reference;
     private DatabaseReference reference1;
 
+    private List<OfferAccepted> acceptedOffersList;
+    private Context context;
 
-    public AcceptedRequestsRecyclerAdapter(List<AcceptedRequest> acceptedRequestList, Context context) {
-        this.acceptedRequestList = acceptedRequestList;
+    public OffersAcceptedRecyclerAdapter(List<OfferAccepted> acceptedOffersList, Context context) {
+        this.acceptedOffersList = acceptedOffersList;
         this.context = context;
     }
 
-    class AcceptedRequestHolder extends RecyclerView.ViewHolder {
+    class AcceptedOfferHolder extends RecyclerView.ViewHolder {
 
         TextView driverName;
         TextView riderName;
@@ -47,41 +45,43 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
         TextView time;
         TextView pickup;
         TextView dropoff;
-        Button confirmRequestButton;
 
-        public AcceptedRequestHolder(View itemView) {
+        Button confirmOfferButton;
+
+        public AcceptedOfferHolder(View itemView) {
             super(itemView);
 
-            riderName = itemView.findViewById(R.id.accepted_rideRequests_riderName_TextView);
-            driverName = itemView.findViewById(R.id.accepted_rideRequests_driverName_TextView);
-            date = itemView.findViewById(R.id.accepted_rideRequests_date_textView);
-            time = itemView.findViewById(R.id.accepted_rideRequests_time_TextView);
-            pickup = itemView.findViewById(R.id.accepted_rideRequests_pickup_textView);
-            dropoff = itemView.findViewById(R.id.accepted_rideRequests_destination_TextView);
+            riderName = itemView.findViewById(R.id.accepted_rideOffers_riderName_TextView);
+            driverName = itemView.findViewById(R.id.accepted_rideOffers_driverName_TextView);
+            date = itemView.findViewById(R.id.accepted_rideOffers_date_textView);
+            time = itemView.findViewById(R.id.accepted_rideOffers_time_TextView);
+            pickup = itemView.findViewById(R.id.accepted_rideOffers_pickup_textView);
+            dropoff = itemView.findViewById(R.id.accepted_rideOffers_destination_TextView);
 
-            confirmRequestButton = itemView.findViewById(R.id.accepted_rideRequests_accept_button);
+
+            confirmOfferButton = itemView.findViewById(R.id.accepted_rideOffers_accept_button);
         }
     }
 
     @NonNull
     @Override
-    public AcceptedRequestHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_accepted_requests, parent, false);
-        return new AcceptedRequestHolder(view);
+    public AcceptedOfferHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_accepted_offers, parent, false);
+        return new AcceptedOfferHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(AcceptedRequestHolder holder, int position) {
-        AcceptedRequest acceptedRequest = acceptedRequestList.get(position);
+    public void onBindViewHolder(AcceptedOfferHolder holder, int position) {
+        OfferAccepted acceptedOffer = acceptedOffersList.get(position);
 
-        Log.d(DEBUG_TAG, "onBindViewHolder: " + acceptedRequest);
+        Log.d(DEBUG_TAG, "onBindViewHolder: " + acceptedOffer);
 
-        String driverName = acceptedRequest.getDriverName();
-        String riderName = acceptedRequest.getRiderName();
-        String date = acceptedRequest.getDate();
-        String time = acceptedRequest.getTime();
-        String pickup = acceptedRequest.getPickup();
-        String dropoff = acceptedRequest.getDropoff();
+        String driverName = acceptedOffer.getDriverName();
+        String riderName = acceptedOffer.getRiderName();
+        String date = acceptedOffer.getDate();
+        String time = acceptedOffer.getTime();
+        String pickup = acceptedOffer.getPickup();
+        String dropoff = acceptedOffer.getDropoff();
 
         holder.driverName.setText(driverName);
         holder.riderName.setText(riderName);
@@ -91,14 +91,13 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
         holder.dropoff.setText(dropoff);
 
         // Add a click listener for the confirm button
-        if (acceptedRequest.isRiderConfirmed()) {
-            holder.confirmRequestButton.setEnabled(false);
-            holder.confirmRequestButton.setText("Confirmed");
+        if (acceptedOffer.isDriverConfirmed()) {
+            holder.confirmOfferButton.setEnabled(false);
+            holder.confirmOfferButton.setText("Confirmed");
         } else {
-            holder.confirmRequestButton.setEnabled(true);
-            holder.confirmRequestButton.setText("Confirm Ride Request");
-
-            holder.confirmRequestButton.setOnClickListener(new View.OnClickListener() {
+            holder.confirmOfferButton.setEnabled(true);
+            holder.confirmOfferButton.setText("Confirm Ride Offer");
+            holder.confirmOfferButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     database = FirebaseDatabase.getInstance();
@@ -108,15 +107,15 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
 
                     if (currentUser != null) {
                         // Get the current user's email
-                        String currentRiderEmail = currentUser.getEmail();
-                        String currentDriverEmail = acceptedRequest.getDriverName();
-                        String key = acceptedRequest.getKey();
-                        holder.confirmRequestButton.setEnabled(false);
-                        reference1 = database.getReference("AcceptedRequests");
-                        holder.confirmRequestButton.setText("Confirmed");
-                        acceptedRequest.setRiderConfirmed(true);
-                        reference1.child(key).child("riderConfirmed").setValue(true);
-                        
+                        String currentDriverEmail = currentUser.getEmail();
+                        String currentRiderEmail = acceptedOffer.getRiderName();
+                        String key = acceptedOffer.getKey();
+                        holder.confirmOfferButton.setEnabled(false);
+                        reference1 = database.getReference("AcceptedOffers");
+                        holder.confirmOfferButton.setText("Confirmed");
+                        acceptedOffer.setDriverConfirmed(true);
+                        reference1.child(key).child("driverConfirmed").setValue(true);
+                        // Function to update user points based on the email
                         updateUserPoints(currentDriverEmail, 50);
                         updateUserPoints(currentRiderEmail, -50);
                     } else {
@@ -131,7 +130,6 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
             });
         }
     }
-
     // Separate function to update user points
     private void updateUserPoints(String userEmail, int pointsChange) {
         // Query the database to find the user with the matching email
@@ -197,6 +195,7 @@ public class AcceptedRequestsRecyclerAdapter extends RecyclerView.Adapter<Accept
 
     @Override
     public int getItemCount() {
-        return acceptedRequestList.size();
+        return acceptedOffersList.size();
     }
 }
+

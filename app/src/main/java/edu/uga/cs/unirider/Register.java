@@ -103,7 +103,7 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        HelperClass helperClass = new HelperClass(email, email.substring(0, email.indexOf("@")),  password, userPoints);
+        User helperClass = new User(email, email.substring(0, email.indexOf("@")),  password, userPoints);
         reference.child(email.substring(0, email.indexOf("@"))).setValue(helperClass);
 
         mAuth.createUserWithEmailAndPassword(email, password)

@@ -54,7 +54,7 @@ public class UserPoints extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                        HelperClass helperClass = userSnapshot.getValue(HelperClass.class);
+                        User helperClass = userSnapshot.getValue(User.class);
                         if (helperClass != null) {
                             Integer userPoints = helperClass.getUserPoints();
                             userPointsTextView.setText("User Points: " + userPoints);

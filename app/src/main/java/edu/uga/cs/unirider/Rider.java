@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class RiderActivity extends AppCompatActivity {
+public class Rider extends AppCompatActivity {
 
     private CardView viewRideOffers;
     private CardView postRideRequests;
@@ -40,7 +40,7 @@ public class RiderActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             // start the user registration activity
-            Intent intent = new Intent(view.getContext(), NewRideRequest.class);
+            Intent intent = new Intent(view.getContext(), RequestRide.class);
             view.getContext().startActivity(intent);
         }
     }
